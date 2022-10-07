@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+   	<table name="banner_slider" resource="default" engine="innodb" comment="Banner Table">
+		<column xsi:type="smallint" name="banner_id" padding="6" unsigned="false" nullable="false" identity="true" comment="BANNER_ID" />
+		<column xsi:type="varchar" name="name" nullable="false" length="25" comment="Name" />
+		<column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Creation Time"/>
+    	<column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Update Time"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="banner_id" />
+		</constraint>
+   	</table>
+
+	<table name="banner_slider_image" resource="default" engine="innodb" comment="Banner Image Table">
+		<column xsi:type="smallint" name="banner_image_id" padding="6" unsigned="false" nullable="false" identity="true" comment="BANNER_IMAGE_ID" />
+		<column xsi:type="smallint" name="banner_id" padding="6" unsigned="false" nullable="false" comment="BANNER_ID" />
+		<column xsi:type="varchar" name="path" nullable="false" length="255" comment="Path" />
+		<column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Creation Time"/>
+    	<column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Update Time"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="banner_image_id" />
+		</constraint>
+		<constraint xsi:type="foreign" referenceId="BANNER_SLIDER_IMAGE_BANNER_ID_BANNER_SLIDER_BANNER_ID"
+		 table="banner_slider_image" column="banner_id" referenceTable="banner_slider" referenceColumn="banner_id" onDelete="CASCADE"/>
+   	</table>
+
+</schema>

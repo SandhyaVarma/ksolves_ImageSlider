@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ksolves_imageslider_banner_listing_data_source" xsi:type="string">Ksolves\ImageSlider\Model\ResourceModel\Banner\Grid\Collection</item>
+                  <item name="ksolves_imageslider_bannerimage_listing_data_source" xsi:type="string">Ksolves\ImageSlider\Model\ResourceModel\BannerImage\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Ksolves\ImageSlider\Model\ResourceModel\Banner\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">banner_slider</argument>
+            <argument name="resourceModel" xsi:type="string">Ksolves\ImageSlider\Model\ResourceModel\Banner</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Ksolves\ImageSlider\Model\ResourceModel\BannerImage\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">banner_slider_image</argument>
+            <argument name="resourceModel" xsi:type="string">Ksolves\ImageSlider\Model\ResourceModel\BannerImage</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="VirtualTypeName" type="Magento\Catalog\Model\ImageUploader">
+   <arguments>
+      <argument name="baseTmpPath" xsi:type="string">path/image</argument>
+      <argument name="basePath" xsi:type="string">path/image</argument>
+      <argument name="allowedExtensions" xsi:type="array">
+         <item name="jpg" xsi:type="string">jpg</item>
+         <item name="jpeg" xsi:type="string">jpeg</item>
+         <item name="gif" xsi:type="string">gif</item>
+         <item name="png" xsi:type="string">png</item>
+      </argument>
+   </arguments>
+    </virtualType>
+    <type name="Ksolves\ImageSlider\Controller\Adminhtml\BannerImage\Uploader">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">VirtualTypeName</argument>
+        </arguments>
+    </type>
+
+</config>

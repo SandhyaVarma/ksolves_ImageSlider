@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+     <add id="Ksolves_ImageSlider::banner" title="Banners" module="Ksolves_ImageSlider" sortOrder="10" resource="Ksolves_ImageSlider::banner"/>
+        <add id="Ksolves_ImageSlider::banner_slider" title="Banner Slider" module="Ksolves_ImageSlider" sortOrder="5" action="imageslider/banner/index" resource="Ksolves_ImageSlider::banner_slider" parent="Ksolves_ImageSlider::banner"/>
+        <add id="Ksolves_ImageSlider::banner_slider_image" title="Banner Slider Images" module="Ksolves_ImageSlider" sortOrder="6" action="imageslider/bannerimage/index" resource="Ksolves_ImageSlider::banner_slider_image" parent="Ksolves_ImageSlider::banner" />
+    </menu>
+</config>
+
+
