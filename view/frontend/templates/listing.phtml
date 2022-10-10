@@ -1,0 +1,23 @@
+<table>
+    <tr>
+        <th><?= __('ID'); ?></th>
+        <th><?= __('Banner ID'); ?></th>
+        <th><?= __('Path'); ?></th>
+        <th><?= __('Created At'); ?></th>
+        <th><?= __('Updated At'); ?></th>
+    </tr>
+    <?php
+        $collectionData = $block->getResultData();
+        foreach($collectionData as $collection):
+    ?>
+    <tr>
+        <td><?= $collection->getBannerImageId(); ?></td>
+        <td><?= $collection->getBannerId(); ?></td>
+        <td>
+           <img src="<?= $collection->getPath(); ?>" width="50" height="50" />
+        </td>
+        <td><?= $collection->getCreatedAt(); ?></td>
+        <td><?= $collection->getUpdatedAt(); ?></td>
+    </tr>
+    <?php endforeach; ?>
+</table>

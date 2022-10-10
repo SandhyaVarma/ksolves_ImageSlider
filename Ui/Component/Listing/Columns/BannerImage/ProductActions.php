@@ -1,5 +1,5 @@
 <?php
-namespace Ksolves\ImageSlider\Ui\Component\Listing\Columns;
+namespace Ksolves\ImageSlider\Ui\Component\Listing\Columns\BannerImage;
 
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
@@ -14,7 +14,7 @@ class ProductActions extends Column
     private $urlBuilder;
 
     /** Url Path */
-    const PRODUCT_URL_PATH_EDIT = 'imageslider/banner/form';
+    const PRODUCT_URL_PATH_EDIT = 'imageslider/bannerimage/form';
 
     public function __construct(
         ContextInterface $context,
@@ -38,8 +38,8 @@ class ProductActions extends Column
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
                 $name = $this->getData('name');                
-                if (isset($item['banner_id'])) {                    
-                    $item[$name] = html_entity_decode('<a href="'.$this->urlBuilder->getUrl(self::PRODUCT_URL_PATH_EDIT, ['id' => $item['banner_id']]).'">'.'Edit'.'</a>');
+                if (isset($item['banner_image_id'])) {                    
+                    $item[$name] = html_entity_decode('<a href="'.$this->urlBuilder->getUrl(self::PRODUCT_URL_PATH_EDIT, ['id' => $item['banner_image_id']]).'">'.'Edit'.'</a>');
                 }
             }
         }
