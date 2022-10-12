@@ -40,4 +40,9 @@
         </arguments>
     </type>
 
+     <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="ordercomment_extension_attribute"
+                type="Ksolves\ImageSlider\Plugin\OrderRepositoryPlugin" />
+    </type>
+
 </config>
