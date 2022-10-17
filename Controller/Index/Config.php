@@ -39,7 +39,6 @@ public function execute()
 {
    $product = $this->_productFactory->create();
    $colorAttr = $this->attributeRepository->get(\Magento\Catalog\Model\Product::ENTITY, 'color');
-   $bottomSetId =$this->categorySetup->getAttributeSetId(\Magento\Catalog\Model\Product::ENTITY, 'Bottom');
    $associatedProductIds = [];
    $options = $colorAttr->getOptions();
    $values = [];
@@ -49,14 +48,14 @@ public function execute()
        //Create Simple product
        foreach ($options as $index => $option) {
            $product->unsetData();
-           $product->setTypeId(Type::TYPE_SIMPLE)
-               ->setAttributeSetId($bottomSetId)
-               ->setWebsiteIds([1])
-               ->setName('Sample-' . $option->getLabel())
-               ->setSku('simple_' . $index)
-               ->setPrice(10)
-               ->setVisibility(Visibility::VISIBILITY_NOT_VISIBLE)
-               ->setStatus(Status::STATUS_ENABLED);
+           $product->setTypeId(\Magento\Catalog\Model\Product\Type::TYPE_SIMPLE)
+                    ->setAttributeSetId(4)
+                    ->setWebsiteIds([1])
+                    ->setName('Sample_shirt-' . $option->getLabel())
+                    ->setSku('shirt' . $index)
+                    ->setPrice(10)
+                    ->setVisibility(\Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE)
+                    ->setStatus(\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
            $product->setCustomAttribute(
                $colorAttr->getAttributeCode(),
                $option->getValue()
@@ -69,7 +68,6 @@ public function execute()
            $sourceItem->setSourceCode('default');
            $sourceItem->setQuantity(10);
            $sourceItem->setSku($product->getSku());
-           $sourceItem->setStatus(SourceItemInterface::STATUS_IN_STOCK);
            $sourceItems[] = $sourceItem;
 
            $values[] = [
@@ -79,22 +77,14 @@ public function execute()
            $associatedProductIds[] = $product->getId();
        }
 
-       //Execute Update Stock Data
-       $this->sourceItemsSaveInterface->execute($sourceItems);
 
         //Create Configurable Product
         $configurable = $product->unsetData();
         $configurable->setSku('sample_configurable');
         $configurable->setName('Sample Configurable');
-        $configurable->setTypeId(Configurable::TYPE_CODE);
+        $configurable->setTypeId('configurable');
         $configurable->setPrice(10);
         $configurable->setAttributeSetId($this->categorySetup->getAttributeSetId(\Magento\Catalog\Model\Product::ENTITY, 'Default'));
-        $configurable->setCustomAttributes([
-        [
-            "attribute_code" => $colorAttr->getAttributeCode(),
-            "value" => $colorAttr->getDefaultValue(),
-        ],
-        ]);
         
         //Assign simple products to the configurable product
         $extensionAttrs = $configurable->getExtensionAttributes();
@@ -113,6 +103,8 @@ public function execute()
         $this->productRepository->save($configurable);
     }
     catch(\Exception $e){
+        echo "<pre>";
+        print_r($e->getTrace());
         print_r($e->getMessage());
         exit();
     }
